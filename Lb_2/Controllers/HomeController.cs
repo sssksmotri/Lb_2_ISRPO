@@ -28,5 +28,36 @@ namespace Lb_2.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult TaskFirst()
+        {
+            return View();
+        }
+        public IActionResult TaskSecond()
+        {
+            return View();
+        }
+        public IActionResult Task_3()
+        {
+            return View();
+
+        }
+        [HttpPost]
+        public IActionResult TaskFirst(int k)
+        {
+            Random random = new Random();
+            int[] numbers = new int[k];
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                numbers[i] = random.Next(-10, 31);
+            }
+
+            double average = numbers.Where(n => n > 0).Average();
+
+            ViewBag.Array = string.Join(", ", numbers);
+            ViewBag.Average = average;
+
+            return View();
+        }
     }
 }

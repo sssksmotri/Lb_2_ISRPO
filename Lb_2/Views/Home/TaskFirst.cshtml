@@ -1,0 +1,13 @@
+﻿<div>
+    <form method="post">
+        <input type="hidden" name="k" value="15" /> 
+        <input type="submit" value="Сгенерировать массив и вычислить" />
+    </form>
+    <hr />
+    @if (ViewBag.Array != null && ViewBag.Average != null)
+    {
+        <label>Сгенерированный массив: @ViewBag.Array</label>
+        <br />
+        <label>Среднее арифметическое положительных элементов: @ViewBag.Average</label>
+    }
+</div>
