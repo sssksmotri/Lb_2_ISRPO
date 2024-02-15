@@ -59,5 +59,32 @@ namespace Lb_2.Controllers
 
             return View();
         }
+        [HttpPost]
+        public IActionResult TaskSecond(string text)
+        {
+            int countPlus = 0;
+            int countMinus = 0;
+
+            if (!string.IsNullOrEmpty(text))
+            {
+                foreach (char c in text)
+                {
+                    if (c == '+')
+                    {
+                        countPlus++;
+                    }
+                    else if (c == '-')
+                    {
+                        countMinus++;
+                    }
+                }
+            }
+
+            ViewBag.Text = text;
+            ViewBag.CountPlus = countPlus;
+            ViewBag.CountMinus = countMinus;
+
+            return View();
+        }
     }
 }

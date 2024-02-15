@@ -1,0 +1,20 @@
+﻿<div>
+    <form method="post">
+        <label for="text">Введите текст:</label>
+        <input type="text" id="text" name="text" />
+        <button type="submit">Подсчитать</button>
+    </form>
+</div>
+
+@if (ViewBag.CountPlus != null && ViewBag.CountMinus != null)
+{
+    <div>
+        <h2>Результаты подсчета символов</h2>
+        <p>Количество символов "+" в тексте: @ViewBag.CountPlus</p>
+        <p>Количество символов "-" в тексте: @ViewBag.CountMinus</p>
+        @if (ViewBag.CountPlus != null && ViewBag.CountMinus != null)
+        {
+            <p>Общее количество символов "+" и "-": @(ViewBag.CountPlus + ViewBag.CountMinus)</p>
+        }
+    </div>
+}
