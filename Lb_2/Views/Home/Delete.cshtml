@@ -1,0 +1,20 @@
+﻿@model int
+
+<h2>Delete Book</h2>
+
+<div>
+    @using (Html.BeginForm("Delete", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label for="bookId">Book ID:</label>
+            <input type="text" id="bookId" name="id" class="form-control" />
+        </div>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a href="@Url.Action("Index", "Home")" class="btn btn-default">Cancel</a>
+        </div>
+    }
+</div>

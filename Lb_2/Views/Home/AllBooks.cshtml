@@ -1,0 +1,26 @@
+﻿@if (Model != null && Model.Count > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@book.Author</td>
+                    <td>@book.Year</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Книг не найдено.</p>
+}

@@ -6,16 +6,45 @@ namespace Lb_2.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private Libary library; 
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
+            library = new Libary(); 
         }
+
+        private static List<Book> catalog = new List<Book>();
+        private static int nextId = 1;
 
         public IActionResult Index()
         {
-            return View();
+            return View(catalog);
+        }
+
+        [HttpPost]
+        public IActionResult Search(string searchString)
+        {
+            if (string.IsNullOrEmpty(searchString))
+            {
+                return RedirectToAction("AllBooks");
+            }
+
+            var result = catalog.Where(b =>
+                b.Author.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                b.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                b.Year.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase)
+            ).ToList();
+
+            return View("AllBooks", result);
+        }
+        
+        [HttpPost]
+        public IActionResult AddBook(Book book)
+        {
+            book.Id = nextId++; 
+            catalog.Add(book);
+            library.AddBook(book);
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()
@@ -32,6 +61,11 @@ namespace Lb_2.Controllers
         {
             return View();
         }
+       
+        public IActionResult AllBooks()
+        {
+            return View(catalog);
+        }
         public IActionResult TaskSecond()
         {
             return View();
@@ -40,6 +74,10 @@ namespace Lb_2.Controllers
         {
             return View();
 
+        }
+        public IActionResult Delete()
+        {
+            return View();
         }
         [HttpPost]
         public IActionResult TaskFirst(int k)
@@ -85,6 +123,34 @@ namespace Lb_2.Controllers
             ViewBag.CountMinus = countMinus;
 
             return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Task_3(string searchString)
+        {
+            var result = catalog.Where(b =>
+                b.Author.Contains(searchString) ||
+                b.Title.Contains(searchString) ||
+                b.Year.ToString().Contains(searchString)
+            ).ToList();
+
+            return View("AllBooks", result);
+        }
+
+        
+        [HttpPost]
+
+        public IActionResult Delete(int id)
+        {
+            Book bookToRemove = catalog.FirstOrDefault(b => b.Id == id);
+
+            if (bookToRemove != null)
+            {
+                catalog.Remove(bookToRemove);
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
